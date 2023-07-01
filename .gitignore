@@ -32,3 +32,9 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ignoring private key of vm
+id_rsa
+
+# Ignoring plan files
+*.tfplan
