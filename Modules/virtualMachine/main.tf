@@ -81,14 +81,14 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   disable_password_authentication = true
 
   admin_ssh_key {
-    username = "amitgujar"
-    # public_key = tls_private_key.private_ssh.public_key_openssh
-    public_key = file("~/.ssh/id_rsa.pub")
+    username   = "amitgujar"
+    public_key = tls_private_key.private_ssh.public_key_openssh
+    # public_key = file("~/.ssh/id_rsa.pub")
   }
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
-      host        = azurerm_linux_virtual_machine.my_terraform_vm.public_ip_address
+      host        = self.public_ip_address
       user        = "amitgujar"
       private_key = tls_private_key.private_ssh.private_key_pem
     }

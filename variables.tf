@@ -1,5 +1,5 @@
 variable "resource_name" {
-  default     = "rg-terraform-test-001"
+  # default     = "rg-terraform-test-001"
   type        = string
   description = "name of resource group"
 }
