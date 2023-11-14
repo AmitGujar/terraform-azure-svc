@@ -5,7 +5,7 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
 
   security_rule {
     name                       = "SSH"
-    priority                   = 1001
+    priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -16,12 +16,24 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
   }
   security_rule {
     name                       = "HTTP"
-    priority                   = 1002
+    priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "80"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "PING"
+    priority                   = 102
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Icmp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
