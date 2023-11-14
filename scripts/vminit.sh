@@ -64,9 +64,8 @@ user_choice() {
         terraform_apply
         ;;
     d)
-        echo "Silent destruction is started..."
-        az group delete -n $resource_group -y --no-wait
-        send_alert "VM is destroyed 😈"
+        terraform destroy -auto-approve -var="resource_name=$resource_group" >/dev/null &
+        progress_bar_movement 5
         ;;
     *)
         echo "Enter values in c/d only"
