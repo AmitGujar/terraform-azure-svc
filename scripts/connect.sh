@@ -3,7 +3,7 @@ cd $HOME/Desktop/terraform-boilerplate || exit
 
 vm_connect() {
 
-    terraform output -raw tls_private_key >>id_rsa
+    terraform output -raw tls_private_key >id_rsa #overwriting the existing id_rsa
 
     sudo chmod 600 id_rsa
 
