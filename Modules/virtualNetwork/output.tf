@@ -1,5 +1,5 @@
-output "intellidoc_network" {
-  value = azurerm_virtual_network.intellidoc_network.name
+output "virtual_network" {
+  value = azurerm_virtual_network.virtual_network.name
 }
 
 output "cluster_subnet" {

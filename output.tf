@@ -3,7 +3,7 @@ output "resource_group" {
 }
 
 output "virtual_network" {
-  value = module.virtual_network.intellidoc_network
+  value = module.virtual_network.virtual_network
 }
 
 output "tls_private_key" {

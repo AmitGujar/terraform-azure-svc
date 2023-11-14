@@ -76,13 +76,14 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     version   = "latest"
   }
 
-  computer_name                   = "jumpbox-terraform"
+  computer_name                   = "jump-vm"
   admin_username                  = "amitgujar"
   disable_password_authentication = true
 
   admin_ssh_key {
-    username   = "amitgujar"
-    public_key = tls_private_key.private_ssh.public_key_openssh
+    username = "amitgujar"
+    # public_key = tls_private_key.private_ssh.public_key_openssh
+    public_key = file("~/.ssh/id_rsa.pub")
   }
   provisioner "remote-exec" {
     connection {
