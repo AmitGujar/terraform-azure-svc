@@ -14,3 +14,11 @@ output "tls_private_key" {
 output "public_ip_address" {
   value = module.virtual_machine.public_ip_address
 }
+
+output "app_service_plan_name" {
+  value = module.app_service.app_service_plan_name
+}
+
+output "webapp_name" {
+  value = module.app_service.webapp_name
+}

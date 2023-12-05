@@ -32,3 +32,14 @@ module "virtual_machine" {
     module.virtual_network
   ]
 }
+
+module "app_service" {
+  source                = "./Modules/appServices"
+  webapp_name           = var.webapp_name
+  resource_name         = var.resource_name
+  location              = var.location
+  app_service_plan_name = var.app_service_plan_name
+  depends_on = [
+    module.resource_group
+  ]
+}
