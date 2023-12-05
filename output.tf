@@ -22,3 +22,7 @@ output "app_service_plan_name" {
 output "webapp_name" {
   value = module.app_service.webapp_name
 }
+
+output "webapp_url" {
+  value = module.app_service.webapp_url
+}
