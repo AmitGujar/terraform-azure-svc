@@ -43,3 +43,25 @@ module "app_service" {
     module.resource_group
   ]
 }
+
+module "storage_account" {
+  source        = "./Modules/storage"
+  resource_name = var.resource_name
+  location      = var.location
+  depends_on = [
+    module.resource_group
+  ]
+
+}
+
+module "container_instance" {
+  source               = "./Modules/conInstance"
+  resource_name        = var.resource_name
+  location             = var.location
+  share_name           = module.storage_account.share_name
+  storage_account_name = module.storage_account.storage_account_name
+  storage_account_key  = module.storage_account.storage_account_key
+  depends_on = [
+    module.storage_account
+  ]
+}
