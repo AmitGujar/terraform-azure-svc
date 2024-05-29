@@ -2,6 +2,7 @@ variable "resource_name" {
   # default     = "rg-terraform-test-001"
   type        = string
   description = "name of resource group"
+  default     = "rg-nice-001"
 }
 
 variable "location" {
@@ -16,5 +17,22 @@ variable "app_service_plan_name" {
 
 variable "webapp_name" {
   default = "custom-webapp-tf"
-  type    = string 
+  type    = string
+}
+
+variable "client_id" {
+  type = string
+}
+
+variable "client_secret" {
+  type = string
+}
+
+variable "tenant_id" {
+  type = string
+
+}
+
+variable "principal_id" {
+  type = string
 }

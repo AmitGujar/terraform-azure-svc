@@ -48,6 +48,7 @@ module "storage_account" {
   source        = "./Modules/storage"
   resource_name = var.resource_name
   location      = var.location
+  principal_id  = var.principal_id
   depends_on = [
     module.resource_group
   ]
@@ -64,4 +65,23 @@ module "container_instance" {
   depends_on = [
     module.storage_account
   ]
+}
+
+module "container_app" {
+  source        = "./Modules/conApps"
+  resource_name = var.resource_name
+  location      = var.location
+  depends_on = [
+    module.resource_group
+  ]
+}
+
+module "databricks" {
+  source        = "./Modules/databricks"
+  resource_name = data.azurerm_resource_group.aks_rg.name
+  location      = data.azurerm_resource_group.aks_rg.location
+  storage_name  = module.storage_account.storage_account_name
+  client_id     = var.client_id
+  tenant_id     = var.tenant_id
+  client_secret = var.client_secret
 }

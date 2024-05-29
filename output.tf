@@ -55,3 +55,7 @@ output "elastic_dns_name_label" {
 output "neo_container_dns_name_label" {
   value = module.container_instance.neo_container_dns_name_label
 }
+
+output "databricks_workspace_name" {
+  value = module.databricks.workspace_name
+}
