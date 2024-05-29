@@ -110,3 +110,26 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     azurerm_network_interface_security_group_association.nsgconnection
   ]
 }
+
+# resource "azurerm_windows_virtual_machine" "windows11" {
+#   name                = "my-windows11"
+#   location            = var.location
+#   resource_group_name = var.resource_name
+#   size                = "Standard_D4s_v3"
+#   admin_username      = "amitgujar"
+#   admin_password      = "amitGujar@12345"
+
+#   network_interface_ids = [azurerm_network_interface.my_terraform_nic.id]
+
+#   os_disk {
+#     caching              = "ReadWrite"
+#     storage_account_type = "Standard_LRS"
+#   }
+
+#   source_image_reference {
+#     publisher = "MicrosoftWindowsDesktop"
+#     offer     = "Windows-11"
+#     sku       = "win11-21h2-pro"
+#     version   = "latest"
+#   }
+# }
