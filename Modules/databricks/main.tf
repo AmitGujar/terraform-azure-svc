@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "azurerm_databricks_workspace" "tf_databricks" {
-  name                          = "custom-workspace"
+  name                          = "tf-managed-workspace"
   resource_group_name           = var.resource_name
   location                      = var.location
   sku                           = "premium"
@@ -36,7 +36,6 @@ locals {
 resource "databricks_cluster_policy" "tf-managed-policy" {
   name       = "tf_managed_policy"
   definition = jsonencode(local.default_policy)
-
 }
 
 resource "databricks_cluster" "tf_managed_cluster" {
@@ -49,12 +48,4 @@ resource "databricks_cluster" "tf_managed_cluster" {
   num_workers                 = 1
   runtime_engine              = "STANDARD"
   enable_elastic_disk         = false
-
-  spark_conf = {
-    "fs.azure.account.key.${var.storage_name}.dfs.core.windows.net" = "OAuth",
-    "fs.azure.account.oauth.provider.type.${var.storage_name}.dfs.core.windows.net" = "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider"
-    "fs.azure.account.oauth2.client.id.${var.storage_name}.dfs.core.windows.net" = var.client_id
-    "fs.azure.account.oauth2.client.secret.${var.storage_name}.dfs.core.windows.net" = var.client_secret
-    "fs.azure.account.oauth2.client.endpoint.${var.storage_name}.dfs.core.windows.net" = "https://login.microsoftonline.com/${var.tenant_id}/oauth2/token"
-  }
 }
