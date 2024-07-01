@@ -7,74 +7,74 @@
 #   }
 # }
 
-module "resource_group" {
-  source        = "./Modules/resourceGroup"
-  resource_name = var.resource_name
-  location      = var.location
-}
+# module "resource_group" {
+#   source        = "./Modules/resourceGroup"
+#   resource_name = var.resource_name
+#   location      = var.location
+# }
 
-module "virtual_network" {
-  source        = "./Modules/virtualNetwork"
-  resource_name = var.resource_name
-  location      = var.location
-  depends_on = [
-    module.resource_group
-  ]
-}
+# module "virtual_network" {
+#   source        = "./Modules/virtualNetwork"
+#   resource_name = var.resource_name
+#   location      = var.location
+#   depends_on = [
+#     module.resource_group
+#   ]
+# }
 
-module "virtual_machine" {
-  source        = "./Modules/virtualMachine"
-  resource_name = var.resource_name
-  location      = var.location
-  subnet_id     = data.azurerm_subnet.data_jumpbox_subnet.id
-  public_ip_id  = data.azurerm_public_ip.data_jumpbox_public_ip.id
-  depends_on = [
-    module.virtual_network
-  ]
-}
+# module "virtual_machine" {
+#   source        = "./Modules/virtualMachine"
+#   resource_name = var.resource_name
+#   location      = var.location
+#   subnet_id     = data.azurerm_subnet.data_jumpbox_subnet.id
+#   public_ip_id  = data.azurerm_public_ip.data_jumpbox_public_ip.id
+#   depends_on = [
+#     module.virtual_network
+#   ]
+# }
 
-module "app_service" {
-  source                = "./Modules/appServices"
-  webapp_name           = var.webapp_name
-  resource_name         = var.resource_name
-  location              = var.location
-  app_service_plan_name = var.app_service_plan_name
-  depends_on = [
-    module.resource_group
-  ]
-}
+# module "app_service" {
+#   source                = "./Modules/appServices"
+#   webapp_name           = var.webapp_name
+#   resource_name         = var.resource_name
+#   location              = var.location
+#   app_service_plan_name = var.app_service_plan_name
+#   depends_on = [
+#     module.resource_group
+#   ]
+# }
 
 module "storage_account" {
   source        = "./Modules/storage"
-  resource_name = var.resource_name
-  location      = var.location
+  resource_name = data.azurerm_resource_group.aks_rg.name
+  location      = data.azurerm_resource_group.aks_rg.location
   principal_id  = var.principal_id
-  depends_on = [
-    module.resource_group
-  ]
-
+  # depends_on = [
+  #   module.resource_group
+  # ]
 }
+  
 
-module "container_instance" {
-  source               = "./Modules/conInstance"
-  resource_name        = var.resource_name
-  location             = var.location
-  share_name           = module.storage_account.share_name
-  storage_account_name = module.storage_account.storage_account_name
-  storage_account_key  = module.storage_account.storage_account_key
-  depends_on = [
-    module.storage_account
-  ]
-}
+# module "container_instance" {
+#   source               = "./Modules/conInstance"
+#   resource_name        = var.resource_name
+#   location             = var.location
+#   share_name           = module.storage_account.share_name
+#   storage_account_name = module.storage_account.storage_account_name
+#   storage_account_key  = module.storage_account.storage_account_key
+#   depends_on = [
+#     module.storage_account
+#   ]
+# }
 
-module "container_app" {
-  source        = "./Modules/conApps"
-  resource_name = var.resource_name
-  location      = var.location
-  depends_on = [
-    module.resource_group
-  ]
-}
+# module "container_app" {
+#   source        = "./Modules/conApps"
+#   resource_name = var.resource_name
+#   location      = var.location
+#   depends_on = [
+#     module.resource_group
+#   ]
+# }
 
 module "databricks" {
   source        = "./Modules/databricks"
@@ -84,4 +84,13 @@ module "databricks" {
   client_id     = var.client_id
   tenant_id     = var.tenant_id
   client_secret = var.client_secret
+}
+
+module "keyvault" {
+  source              = "./Modules/keyvault"
+  resource_group_name = data.azurerm_resource_group.aks_rg.name
+  location            = data.azurerm_resource_group.aks_rg.location
+  random_integer      = module.storage_account.random_integer
+  tenant_id           = var.tenant_id
+  object_id           = var.principal_id
 }
