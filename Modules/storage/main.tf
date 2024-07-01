@@ -16,11 +16,11 @@ resource "azurerm_storage_account" "tfstorage" {
   }
 }
 
-resource "azurerm_storage_share" "tfshare" {
-  name                 = var.share_name
-  storage_account_name = azurerm_storage_account.tfstorage.name
-  quota                = 50
-}
+# resource "azurerm_storage_share" "tfshare" {
+#   name                 = var.share_name
+#   storage_account_name = azurerm_storage_account.tfstorage.name
+#   quota                = 50
+# }
 
 resource "azurerm_storage_container" "raw" {
   name = "raw"
@@ -45,4 +45,5 @@ resource "azurerm_storage_container" "test" {
 resource "azurerm_role_assignment" "blob_contributer" {
   scope = azurerm_storage_account.tfstorage.id
   principal_id = var.principal_id
+  role_definition_name = "Storage Blob Data Contributor"
 }

@@ -3,10 +3,14 @@ output "storage_account_name" {
 }
 
 output "storage_account_key" {
-  value = azurerm_storage_account.tfstorage.primary_access_key
+  value     = azurerm_storage_account.tfstorage.primary_access_key
   sensitive = true
 }
 
-output "share_name" {
-  value = azurerm_storage_share.tfshare.name
+# output "share_name" {
+#   value = azurerm_storage_share.tfshare.name
+# }
+
+output "random_integer" {
+  value = random_integer.rand.result
 }
