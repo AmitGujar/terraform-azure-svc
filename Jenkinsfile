@@ -20,10 +20,8 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                    // Assuming 'terraform' is the name of the Terraform tool configured in Jenkins
                     env.PATH = "${tool 'terraform'}/bin:" +
                                "${env.PATH}"
-                    /* groovylint-disable-next-line LineLength */
                     env.PATH = "/home/jenkins/agent/tools/org.jenkinsci.plugins.terraform.TerraformInstallation/terraform:${env.PATH}"
                     sh '''
                     sed -i 's|__STORAGE_ACCOUNT_NAME__|'${STORAGE_ACCOUNT_NAME}'|g' providers.tf
@@ -41,7 +39,6 @@ pipeline {
         stage('Plan') {
             steps {
                 withCredentials([file(credentialsId: '1', variable: 'secretFile')]) {
-                    // do something with the file, for instance
                     sh 'terraform plan -out main.tfplan -var-file=$secretFile'
                 }
             }
@@ -53,7 +50,7 @@ pipeline {
         }
         stage('Destroy') {
             steps {
-                sh 'terraform destroy -var-file=$secretFile'
+                sh 'terraform destroy -var-file=$secretFile --auto-approve'
             }
         }
     }
