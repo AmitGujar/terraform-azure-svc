@@ -11,6 +11,7 @@ pipeline {
                 script {
                     withCredentials([azureServicePrincipal(credentialsId: 'a42e24d7-6a93-4112-b60a-cdd2476f0ca1', subscriptionIdVariable: 'AZURE_SUBSCRIPTION_ID', clientIdVariable: 'AZURE_CLIENT_ID', clientSecretVariable: 'AZURE_CLIENT_SECRET', tenantIdVariable: 'AZURE_TENANT_ID')]) {
                         sh 'echo hello world'
+                        sh 'echo $AZURE_SUBSCRIPTION_ID'
                     }
                 }
             }
