@@ -4,6 +4,7 @@ pipeline {
     environment {
         STORAGE_ACCOUNT_NAME = 'tfstorageisgreat82'
         ACCESS_KEY = credentials('2')
+        SECRET_FILE = credentials('1')
     }
 
     stages {
@@ -38,9 +39,7 @@ pipeline {
         }
         stage('Plan') {
             steps {
-                withCredentials([file(credentialsId: '1', variable: 'secretFile')]) {
-                    sh 'terraform plan -out main.tfplan -var-file=$secretFile'
-                }
+                    sh 'terraform plan -out main.tfplan -var-file=$SECRET_FILE'
             }
         }
         stage('Deployment') {
@@ -50,7 +49,7 @@ pipeline {
         }
         stage('Destroy') {
             steps {
-                sh 'terraform destroy -var-file=$secretFile --auto-approve'
+                sh 'terraform destroy --auto-approve -var-file=$SECRET_FILE'
             }
         }
     }
