@@ -37,8 +37,11 @@ pipeline {
             }
         }
         stage('Plan') {
-            steps {
-                sh 'terraform plan -out main.tfplan'
+            withCredentials([file(credentialsId: 'ad9d92b4-cc86-4fce-b4f6-132b082e6179', variable: 'secretFile')]) {
+                // do something with the file, for instance
+                steps {
+                    sh 'terraform plan -out main.tfplan -var-file=$secretFile'
+                }
             }
         }
     }
