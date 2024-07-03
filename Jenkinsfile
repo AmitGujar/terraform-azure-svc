@@ -51,5 +51,10 @@ pipeline {
                 sh 'terraform apply main.tfplan'
             }
         }
+        stage('Destroy') {
+            steps {
+                sh 'terraform destroy -var-file=$secretFile'
+            }
+        }
     }
 }
