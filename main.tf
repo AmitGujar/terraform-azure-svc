@@ -53,7 +53,7 @@ module "storage_account" {
   #   module.resource_group
   # ]
 }
-
+  
 
 # module "container_instance" {
 #   source               = "./Modules/conInstance"
@@ -79,7 +79,7 @@ module "storage_account" {
 module "databricks" {
   source        = "./Modules/databricks"
   resource_name = data.azurerm_resource_group.aks_rg.name
-  location      = "eastus"
+  location      = data.azurerm_resource_group.aks_rg.location
   storage_name  = module.storage_account.storage_account_name
   client_id     = var.client_id
   tenant_id     = var.tenant_id
