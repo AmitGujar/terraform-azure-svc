@@ -45,9 +45,10 @@ pipeline {
                 }
             }
         }
-        stage('Deployment')
+        stage('Deployment') {
             steps {
                 sh 'terraform apply main.tfplan'
             }
+        }
     }
 }
