@@ -40,12 +40,3 @@ variable "principal_id" {
 variable "subscription_id" {
   type = string
 }
-
-variable "storage_account_name" {
-  type = string
-}
-
-variable "access_key" {
-  type = string
-  
-}

@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        TF_VERSION = '1.9.0'
         STORAGE_ACCOUNT_NAME = 'tfstorageisgreat82'
         ACCESS_KEY = credentials('2')
     }
