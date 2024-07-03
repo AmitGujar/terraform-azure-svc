@@ -1,4 +1,12 @@
 terraform {
+  backend "azurerm" {
+    storage_account_name = "__STORAGE_ACCOUNT_NAME__"
+    container_name       = "terraform"
+    key                  = "terraform.tfstate"
+    access_key           = "__ACCESS_KEY__"
+  }
+
+
   required_version = ">= 1.0"
   required_providers {
     azurerm = {

@@ -35,14 +35,14 @@
 #   value = module.container_instance.neo_container_ip 
 # }
 
-# output "storage_account_name" {
-#   value = module.storage_account.storage_account_name
-# }
+output "storage_account_name" {
+  value = module.storage_account.storage_account_name
+}
 
-# output "storage_account_key" {
-#   value     = module.storage_account.storage_account_key
-#   sensitive = true
-# }
+output "storage_account_key" {
+  value     = module.storage_account.storage_account_key
+  sensitive = true
+}
 
 # output "storage_share_name" {
 #   value = module.storage_account.share_name
