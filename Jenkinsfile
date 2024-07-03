@@ -30,10 +30,6 @@ pipeline {
         stage('Init') {
             steps {
                 sh 'terraform init --upgrade'
-            }
-        }
-        stage('Validate') {
-            steps {
                 sh 'terraform validate'
             }
         }
