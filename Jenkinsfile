@@ -22,5 +22,10 @@ pipeline {
                 sh 'terraform init --upgrade'
             }
         }
+        stage('Validate') {
+            steps {
+                sh 'terraform validate'
+            }
+        }
     }
 }
