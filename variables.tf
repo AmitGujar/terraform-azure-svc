@@ -6,7 +6,7 @@ variable "resource_name" {
 }
 
 variable "location" {
-  default = "centralindia"
+  default = "eastus"
   type    = string
 }
 
