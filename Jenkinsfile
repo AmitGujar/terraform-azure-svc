@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Plan') {
             steps {
-                    sh 'terraform plan -out main.tfplan -var-file=$SECRET_FILE'
+                sh 'terraform plan -out main.tfplan -var-file=$SECRET_FILE'
             }
         }
         stage('Deployment') {
